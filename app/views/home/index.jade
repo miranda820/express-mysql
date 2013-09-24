@@ -1,0 +1,7 @@
+extends ../layout
+
+block content
+  h1 I'm using generator-express MVC!
+
+  each invitee in invitees
+    li= invitee.firstName
