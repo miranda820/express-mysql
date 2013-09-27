@@ -3,7 +3,7 @@
 
 exports.index = {
 
-    getData: function (req, res, next) {
+    /*getData: function (req, res, next) {
       var item = require ('../models/invitees');
       item.query( function (row) {
         req.query = row;
@@ -11,13 +11,16 @@ exports.index = {
         next();
       });
       
-    },
+    },*/
 
     getView:  function(req, res){
       console.log(req.query);
-      res.render('home/index', {
+      var invitees = require('../models/invitees');
+      invitees.query(function (row) {
+        res.render('home/index', {
           title: 'site',
-          invitees: req.query
+          invitees: row
         });
+      });
   }
 }
