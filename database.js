@@ -1,41 +1,17 @@
+var creatConnection = function(config, callback){
+var mysql = require('mysql');
+var pool = mysql.createPool(config.sql);
+var getConnection;
+console.log('making connection');
 
-var mysql = require('mysql'),
-		config = require('./config/config');
+pool.getConnection(function(err, connection) {
 
+      callback(connection);
+  });
 
-var connection = mysql.createConnection(config.sql);
-
-var connect = function () {
-
-	connection.connect(function(err, db){
-		if(!err){
-					console.log("You are connected to the database.");
-
-		}
-		else{
-					throw err;
-		}
-	});
-}
-
-
-
-var end = function () {
-	connection.end(function(err){
-		if(!err){
-					console.log("Mysql connection is terminated.")
-		}
-		else{
-					throw err;
-		}
-	});
 }
 
 
 module.exports = {
-	connect: connect,
-	connection: connection,
-	end: end,
+  creatConnection: creatConnection,
 }
-
-//console.log('this is module', module);

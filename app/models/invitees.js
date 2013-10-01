@@ -1,24 +1,19 @@
 // Example model
 
 
-var db = require('../../database');
+var query = function (connection, callback) {
+ 	// Use the connection
+  	connection.query( 'SELECT firstName FROM invitees', function(err, rows) {
+    	
+    	if (err) throw err;
+			console.log('rows', rows);
+			//passing data to controller 
+			callback(rows);
 
-//db.connect();
-
-var query = function ( callback ) {
-	console.log('Article called');
-	db.connection.query('SELECT firstName FROM invitees', function(err, rows, fields) {
-
-	  if (err) throw err;
-
-	  console.log('rows', rows);
-	  callback(rows);
-
-	 db.end();
-
+    	// And finish with the connection.
+    	connection.release();
 	});
 }
-
 
 module.exports = {
 	query: query

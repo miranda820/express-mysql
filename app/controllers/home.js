@@ -1,26 +1,12 @@
-//controller
 
-
-exports.index = {
-
-    /*getData: function (req, res, next) {
-      var item = require ('../models/invitees');
-      item.query( function (row) {
-        req.query = row;
-        console.log('item',req.query);
-        next();
+exports.index = function(req, res, connection){
+    var invitees = require('../models/invitees');
+    invitees.query(connection, function (row) {
+      res.render('home/index', {
+        title: 'site',
+        //passing data to view 
+        invitees: row
       });
-      
-    },*/
-
-    getView:  function(req, res){
-      console.log(req.query);
-      var invitees = require('../models/invitees');
-      invitees.query(function (row) {
-        res.render('home/index', {
-          title: 'site',
-          invitees: row
-        });
-      });
-  }
+    });
 }
+
